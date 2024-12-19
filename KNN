@@ -1,0 +1,85 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPlXcYJF6ex4PpVxvfewnPQ",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/venkatamani61/KNN-machine-learning-algorithm/blob/main/KNN\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "K8Xpv4mPCXnf",
+        "outputId": "82614d26-6e2e-48a2-b147-90ba0356f439",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        }
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "[2 2 0 1 1 1 0 2 2 1 2 0 0 1]\n",
+            "Sunny =2 Overcast =0 Rainy =1\n",
+            "[1 1 1 2 0 0 0 2 0 2 2 2 1 2]\n",
+            "Hot =1 Mild =2 Cool =0\n",
+            "[0 0 0 0 1 1 1 0 1 1 1 0 1 0]\n",
+            "High =0 NO =0\n",
+            "[1 0 1 1 1 0 0 1 1 1 0 0 1 0]\n",
+            "Weak =0 Strong=1\n",
+            "['No']\n"
+          ]
+        }
+      ],
+      "source": [
+        "weather=['Sunny','Sunny','Overcast','Rainy','Rainy','Rainy','Overcast','Sunny','Sunny','Rainy','Sunny','Overcast','Overcast','Rainy']\n",
+        "temp=['Hot','Hot','Hot','Mild','Cool','Cool','Cool','Mild','Cool','Mild','Mild','Mild','Hot','Mild']\n",
+        "humi=['High','High','High','High','No','No','No','High','No','No','No','High','No','High']\n",
+        "wind=['weak','strong','weak','weak','weak','strong','strong','weak','weak','weak','strong','strong','weak','strong',]\n",
+        "play=['No','No','Yes','Yes','Yes','No','Yes','No','Yes','Yes','Yes','Yes','Yes','No']\n",
+        "from sklearn import preprocessing\n",
+        "le = preprocessing.LabelEncoder()\n",
+        "weather_encoded=le.fit_transform(weather)\n",
+        "print(weather_encoded)\n",
+        "print(\"Sunny =2 Overcast =0 Rainy =1\" )\n",
+        "temp_encoded=le.fit_transform(temp)\n",
+        "print(temp_encoded)\n",
+        "print(\"Hot =1 Mild =2 Cool =0\" )\n",
+        "humi_encoded=le.fit_transform(humi)\n",
+        "print(humi_encoded)\n",
+        "print(\"High =0 NO =0\" )\n",
+        "wind_encoded=le.fit_transform(wind)\n",
+        "print(wind_encoded)\n",
+        "print(\"Weak =0 Strong=1\")\n",
+        "features=list(zip(weather_encoded,temp_encoded,humi_encoded,wind_encoded))\n",
+        "from sklearn.neighbors import KNeighborsClassifier\n",
+        "model = KNeighborsClassifier(n_neighbors=3)\n",
+        "model.fit(features,play)\n",
+        "predicted= model.predict([[2,0,0,1]])\n",
+        "print(predicted)"
+      ]
+    }
+  ]
+}
